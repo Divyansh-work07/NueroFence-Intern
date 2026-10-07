@@ -1,0 +1,72 @@
+{
+  "file": {
+    "filename": "clean_demo.npz",
+    "size_bytes": 1951,
+    "format": "npz",
+    "sha256": "aa6b62ccb97aca67a248037867ae55ca1750487cd3f88569b4eca1ca659e346c"
+  },
+  "model": {
+    "tensor_count": 2,
+    "parameter_count": 384,
+    "configs": [],
+    "archive_members": [
+      {
+        "name": "layer_0.npy",
+        "size": 1152
+      },
+      {
+        "name": "layer_1.npy",
+        "size": 640
+      }
+    ]
+  },
+  "tensors": [
+    {
+      "name": "layer_0",
+      "shape": [
+        16,
+        16
+      ],
+      "dtype": "float32",
+      "elements": 256,
+      "mean": -0.023122534155845642,
+      "std": 0.14668311178684235,
+      "min": -0.3831435739994049,
+      "max": 0.3215656578540802,
+      "max_abs": 0.3831435739994049,
+      "zero_fraction": 0.0
+    },
+    {
+      "name": "layer_1",
+      "shape": [
+        16,
+        8
+      ],
+      "dtype": "float32",
+      "elements": 128,
+      "mean": 0.0009119936730712652,
+      "std": 0.07744985073804855,
+      "min": -0.1411842703819275,
+      "max": 0.26761943101882935,
+      "max_abs": 0.26761943101882935,
+      "zero_fraction": 0.0
+    }
+  ],
+  "findings": [],
+  "risk": {
+    "score": 0,
+    "level": "LOW",
+    "interpretation": "Heuristic risk indicator; not a probability and does not prove poisoning."
+  },
+  "scope": {
+    "static_only": true,
+    "behavioral_testing": "Not run: requires an explicitly configured sandboxed inference adapter.",
+    "limitations": [
+      "Anomalies are indicators, not proof of a backdoor.",
+      "The scanner does not execute model code or unpickle files.",
+      "Distribution thresholds may flag legitimate models."
+    ]
+  },
+  "scan_id": "7c4f90f35859",
+  "created_at": "2026-09-29T02:45:04.367225+00:00"
+}

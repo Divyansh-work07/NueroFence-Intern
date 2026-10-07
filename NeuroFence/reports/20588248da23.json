@@ -1,0 +1,44 @@
+{
+  "file": {
+    "filename": "unsafe_format_demo.pt",
+    "size_bytes": 69,
+    "format": "pickle",
+    "sha256": "41421dc9efa2a9853b8a4ceee1968e71523eea74a7db2f86312142dddc1e77ca"
+  },
+  "model": {
+    "tensor_count": 0,
+    "parameter_count": 0,
+    "configs": [],
+    "archive_members": []
+  },
+  "tensors": [],
+  "findings": [
+    {
+      "code": "UNSAFE_SERIALIZATION",
+      "title": "Pickle-based model format",
+      "severity": "HIGH",
+      "detail": "This file type can carry executable serialization payloads. It was not deserialized.",
+      "explanation": "This extension is commonly associated with Python pickle serialization.",
+      "why_it_matters": "Opening pickle files can execute code. NeuroFence deliberately refuses to deserialize this file.",
+      "recommendation": "Do not load it. Prefer safetensors or use a disposable sandbox."
+    }
+  ],
+  "risk": {
+    "score": 50,
+    "level": "HIGH",
+    "summary": "Several or serious indicators were found. Hold the artifact while you investigate it.",
+    "interpretation": "Heuristic risk indicator; not a probability and does not prove poisoning.",
+    "scoring": "LOW=5, MEDIUM=18, HIGH=35, CRITICAL=50 points per finding; points are added and capped at 100. Unknown and pickle formats receive 15 additional points."
+  },
+  "scope": {
+    "static_only": true,
+    "behavioral_testing": "Not run: requires an explicitly configured sandboxed inference adapter.",
+    "limitations": [
+      "Anomalies are indicators, not proof of a backdoor.",
+      "The scanner does not execute model code or unpickle files.",
+      "Distribution thresholds may flag legitimate models."
+    ]
+  },
+  "scan_id": "20588248da23",
+  "created_at": "2026-09-29T03:14:15.805231+00:00"
+}

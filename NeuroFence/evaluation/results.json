@@ -1,0 +1,10 @@
+{
+  "evaluation_type": "synthetic fixture expectations",
+  "generated_at": "2026-09-29",
+  "cases": [
+    {"file": "clean_demo.npz", "expected_findings": [], "expected_risk": "LOW", "scope": "finite ordinary synthetic arrays"},
+    {"file": "anomalous_demo.npz", "expected_findings": ["NONFINITE_WEIGHT", "EXTREME_MAGNITUDE"], "expected_risk": "HIGH", "scope": "one NaN and one weight magnitude 250 deliberately injected"},
+    {"file": "unsafe_format_demo.pt", "expected_findings": ["UNSAFE_SERIALIZATION"], "expected_risk": "HIGH", "scope": "extension-based refusal; contents not loaded"}
+  ],
+  "caveat": "Expected behavior only; not a measured benchmark or evidence of general backdoor detection."
+}

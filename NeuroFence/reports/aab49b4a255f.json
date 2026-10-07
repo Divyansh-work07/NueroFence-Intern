@@ -1,0 +1,93 @@
+{
+  "file": {
+    "filename": "anomalous_demo.npz",
+    "size_bytes": 1945,
+    "format": "npz",
+    "sha256": "d10f0fe1f84b4efee66d1f50a77ec1914a1514cc75d771d25d24d0f0e0c2d051"
+  },
+  "model": {
+    "tensor_count": 2,
+    "parameter_count": 384,
+    "configs": [],
+    "archive_members": [
+      {
+        "name": "layer_0.npy",
+        "size": 1152
+      },
+      {
+        "name": "layer_1.npy",
+        "size": 640
+      }
+    ]
+  },
+  "tensors": [
+    {
+      "name": "layer_0",
+      "shape": [
+        16,
+        16
+      ],
+      "dtype": "float32",
+      "elements": 256,
+      "mean": 0.9811902046203613,
+      "std": 15.625534057617188,
+      "min": -0.42638638615608215,
+      "max": 250.0,
+      "max_abs": 250.0,
+      "zero_fraction": 0.0
+    },
+    {
+      "name": "layer_1",
+      "shape": [
+        16,
+        8
+      ],
+      "dtype": "float32",
+      "elements": 128,
+      "mean": -0.016398409381508827,
+      "std": 0.07695828378200531,
+      "min": -0.19818523526191711,
+      "max": 0.14900246262550354,
+      "max_abs": 0.19818523526191711,
+      "zero_fraction": 0.0
+    }
+  ],
+  "findings": [
+    {
+      "code": "NONFINITE_WEIGHT",
+      "title": "NaN or infinity in weights",
+      "severity": "HIGH",
+      "detail": "layer_0: 1 non-finite value(s).",
+      "explanation": "A tensor contains NaN or infinity instead of ordinary numeric values.",
+      "why_it_matters": "This can break inference and may indicate corruption or an intentional modification.",
+      "recommendation": "Quarantine and compare with a trusted checkpoint."
+    },
+    {
+      "code": "EXTREME_MAGNITUDE",
+      "title": "Extreme weight magnitude",
+      "severity": "HIGH",
+      "detail": "layer_0: max absolute value 250 exceeds threshold 100.",
+      "explanation": "At least one weight is much larger than this scanner\u2019s conservative threshold.",
+      "why_it_matters": "Very large weights can destabilize a model, but some legitimate models may also contain large values.",
+      "recommendation": "Compare tensor statistics against an authenticated baseline."
+    }
+  ],
+  "risk": {
+    "score": 70,
+    "level": "HIGH",
+    "summary": "Several or serious indicators were found. Hold the artifact while you investigate it.",
+    "interpretation": "Heuristic risk indicator; not a probability and does not prove poisoning.",
+    "scoring": "LOW=5, MEDIUM=18, HIGH=35, CRITICAL=50 points per finding; points are added and capped at 100. Unknown and pickle formats receive 15 additional points."
+  },
+  "scope": {
+    "static_only": true,
+    "behavioral_testing": "Not run: requires an explicitly configured sandboxed inference adapter.",
+    "limitations": [
+      "Anomalies are indicators, not proof of a backdoor.",
+      "The scanner does not execute model code or unpickle files.",
+      "Distribution thresholds may flag legitimate models."
+    ]
+  },
+  "scan_id": "aab49b4a255f",
+  "created_at": "2026-09-29T03:13:37.306000+00:00"
+}
